@@ -1,7 +1,8 @@
 /*
-Project #4 - Virtual Memory
+Project #4: - Virtual Memory Assignment
 Michael Merabi
-CS222 - Fall 2018 - T/Th 8am
+CS222 - Fall 2018
+Meeting time: T/Th 8-9:15am
 */
 
 #include<stdio.h>
@@ -58,9 +59,9 @@ void parameterdisplay() {
 void parameters() {
 	//taking in input
 	// policy 0=LRU, 1=FIFO
-	fscanf("%i", &mainmemsize);
-	fscanf("%i", &pagesize);
-	fscanf("%i", &policy);
+	scanf("%i", &mainmemsize);
+	scanf("%i", &pagesize);
+	scanf("%i", &policy);
 
 }
 
@@ -96,7 +97,7 @@ void mapadd() {
 	int h;
 
 	printf("Enter virtual memory address to access: ");
-	fscanf("%d", &vmadd);
+	scanf("%d", &vmadd);
 
 	//Offset and virtual page calculation
 
@@ -169,10 +170,8 @@ void mapadd() {
 }
 
 //MAIN FUNCTION
-int main(int argc, char *argv){
+int main(void){
 
-	FILE *test;
-	test = fopen(argv[1], "r");
 	for (;;) {
 		printf("\n");
 		int choice = 0;
