@@ -17,7 +17,6 @@ int policy = 2;
 int pagesize = 0;
 int pages = 0;
 
-
 //Declaring a struct for the virtual memory similar to the cache assignment
 struct ptable {
 	int frame;
@@ -32,8 +31,6 @@ void intro() {
 	printf("\n-----------------------------------------\n");
 	printf("1)Enter Parameters\n2)Map Virtual Address\n3)Quit\n");
 }
-
-
 
 
 //Function for displaying the parameter properties
@@ -56,12 +53,12 @@ void parameterdisplay() {
 
 
 //function for inputting parameters
-void parameters() {
+void parameters(*FILE) {
 	//taking in input
 	// policy 0=LRU, 1=FIFO
-	scanf("%i", &mainmemsize);
-	scanf("%i", &pagesize);
-	scanf("%i", &policy);
+	fscanf(test,"%i", &mainmemsize);
+	fscanf(test,"%i", &pagesize);
+	fscanf(test,"%i", &policy);
 
 }
 
@@ -80,13 +77,14 @@ void memallocate() {
 	pages = (mainmemsize / pagesize);
 	mainmem = (struct ptable *)malloc(pages * sizeof(struct ptable));
 	//Setting everything to -1, a number we won't be working with to help with logic later
-	for (i = 0;i < pages;i++) {
+	for (i = 0; i < pages; i++) {
 		mainmem[i].frame = -1;
 		mainmem[i].vpage = -1;
+
 	}
 }
 //Function for mapping the addresses
-void mapadd() {
+void mapadd(*FILE) {
 	int vmadd;
 	int physadd;
 	int vpage;
@@ -95,9 +93,10 @@ void mapadd() {
 	int shiftvp;
 	int g;
 	int h;
+	int framenum = 0;
 
 	printf("Enter virtual memory address to access: ");
-	scanf("%d", &vmadd);
+	fscanf(test,"%d", &vmadd);
 
 	//Offset and virtual page calculation
 
@@ -116,7 +115,7 @@ void mapadd() {
 					
 					shiftpframe = mainmem[g].frame;
 					shiftvp = mainmem[g].vpage;
-					mainmem[g] = mainmem[g + 1];
+				//	mainmem[g] = mainmem[g + 1];
 					mainmem[g + 1].frame = shiftpframe;
 					mainmem[g + 1].vpage = shiftvp;
 				}
@@ -130,17 +129,20 @@ void mapadd() {
 		else if (mainmem[i].vpage == -1) {
 			//setting virtual page 
 			mainmem[i].vpage = vpage;
-			mainmem[i].frame = i;
+			//keeping track of framenum
+			mainmem[i].frame = framenum;
+			mainmem[g + 1].frame = shiftpframe;
+			mainmem[g + 1].vpage = shiftvp;
 			printf("***Page fault!\n");
 			physadd = (mainmem[i].frame * pagesize) + offset;
 			printf("***Virtual Address: %d maps to physical address %d\n", vmadd, physadd);
 			//set index to last element
 			i = pages - 1;
+			framenum++;
 		}
 		//If statement for the last index of page
 		else if (i == pages - 1) {
 			mainmem[0].vpage = vpage;
-			
 
 			//For loop for shifting the addresses
 			for (h = 0; h < pages - 1; h++) {
@@ -170,7 +172,9 @@ void mapadd() {
 }
 
 //MAIN FUNCTION
-int main(void){
+int main(int argc, char *argv[]){
+	FILE *test;
+	test = fopen(argv[1], "r");
 
 	for (;;) {
 		printf("\n");
@@ -179,16 +183,16 @@ int main(void){
 		intro();
 
 		//Choice input
-		scanf("%i", &choice);
+		fscanf(test,"%i", &choice);
 		switch (choice) {
 		case 1:
-			parameters();
-			memallocate();
+			parameters(test);
+			memallocate(test);
 			parameterdisplay();
 			break;
 
 		case 2:
-			mapadd();
+			mapadd(test);
 			break;
 
 		case 3:
