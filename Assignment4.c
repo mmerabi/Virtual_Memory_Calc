@@ -41,7 +41,8 @@ void set_params()
   /* Allocate and initialize page table based on number of entries */
   pt = (entry*)malloc(num_entries * sizeof(entry));
   //initialize each value with for loop, index's are 0-3
-  for(int i = 0; i < 4; i++){
+  int i;
+  for(i = 0; i < 4; i++){
     pt[i].vp = -1;
     pt[i].pf = -1;
   }
