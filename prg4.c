@@ -16,6 +16,7 @@ int mainmemsize=0;
 int policy = 2;
 int pagesize = 0;
 int pages = 0;
+FILE *test;
 
 //Declaring a struct for the virtual memory similar to the cache assignment
 struct ptable {
@@ -173,7 +174,6 @@ void mapadd(*FILE) {
 
 //MAIN FUNCTION
 int main(int argc, char *argv[]){
-	FILE *test;
 	test = fopen(argv[1], "r");
 
 	for (;;) {
