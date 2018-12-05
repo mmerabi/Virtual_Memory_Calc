@@ -54,12 +54,12 @@ void parameterdisplay() {
 
 
 //function for inputting parameters
-void parameters(*FILE) {
+void parameters() {
 	//taking in input
 	// policy 0=LRU, 1=FIFO
-	fscanf(test,"%i", &mainmemsize);
-	fscanf(test,"%i", &pagesize);
-	fscanf(test,"%i", &policy);
+	fscanf(test,"%d", &mainmemsize);
+	fscanf(test,"%d", &pagesize);
+	fscanf(test,"%d", &policy);
 
 }
 
@@ -85,7 +85,7 @@ void memallocate() {
 	}
 }
 //Function for mapping the addresses
-void mapadd(*FILE) {
+void mapadd() {
 	int vmadd;
 	int physadd;
 	int vpage;
@@ -175,27 +175,25 @@ void mapadd(*FILE) {
 //MAIN FUNCTION
 int main(int argc, char *argv[]){
 	test = fopen(argv[1], "r");
-
-	for (;;) {
+	int choice = 0;
+	while (choice != 3) {
 		printf("\n");
-		int choice = 0;
 		//intro function
-		intro();
+		//intro();
 
 		//Choice input
-		fscanf(test,"%i", &choice);
-		switch (choice) {
-		case 1:
+		fscanf(test,"%d", &choice);
+		if (choice == 1) {
 			parameters(test);
 			memallocate(test);
 			parameterdisplay();
 			break;
-
-		case 2:
+		}
+		else if (choice == 2){
 			mapadd(test);
 			break;
-
-		case 3:
+		}
+		else if (choice == 3){
 			aexit();
 		}
 		
