@@ -1,10 +1,3 @@
-/*
-Project #4: - Virtual Memory Assignment
-Michael Merabi
-CS222 - Fall 2018
-Meeting time: T/Th 8-9:15am
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -46,8 +39,6 @@ void set_params()
     pt[i].vp = -1;
     pt[i].pf = -1;
   }
-
-    printf("\n\nNAME: Michael Merabi\n");
 	printf("Virtual Address Mapping\n");
 	printf("--------------------------------------\n");
 	printf("NEW CONFIGURATION\n");
@@ -150,7 +141,6 @@ int choice = 0;
 
 while(choice != 3){
 
-	printf("NAME: Michael Merabi\nVirtual Memory\nCOMP222 Fall 2018\n8:00AM-9:30");
 	printf("\n-----------------------------------------\n");
 	printf("1)Enter Parameters\n2)Map Virtual Address\n3)Quit\n");
 
